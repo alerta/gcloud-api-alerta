@@ -33,6 +33,12 @@ or `gcloud` (you will be prompted for the password set above):
 
     $ gcloud sql connect [INSTANCE_NAME] --user postgres
 
+    Password for user postgres:
+    *******
+    psql (9.6.2, server 9.6.1)
+    SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES128-GCM-SHA256, bits: 128, compression: off)
+    Type "help" for help.
+
     postgres=> CREATE DATABASE monitoring;
     CREATE DATABASE
 
@@ -81,6 +87,16 @@ which have timed-out and deletes expired and closed alerts.
 To enable the cron job run:
 
     $ gcloud app deploy cron.yaml
+
+Scaling Down
+------------
+
+To scale down the app deploy using `--version dev` then it can be stopped
+and started easily:
+
+    $ gcloud app deploy --version dev
+    $ gcloud app versions stop dev
+    $ gcloud app versions start dev
 
 Testing
 -------

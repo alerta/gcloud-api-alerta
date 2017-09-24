@@ -5,6 +5,9 @@ entrypoint: gunicorn -b :$PORT alerta:app
 runtime_config:
   python_version: 3
 
+manual_scaling:
+ instances: 1
+
 env_variables:
   DATABASE_URL: psycopg2://USER:PASSWORD@/DATABASE?host=/cloudsql/INSTANCE_CONNECTION_NAME
 

@@ -1,0 +1,4 @@
+cron:
+- description: housekeeping
+  url: /management/housekeeping
+  schedule: every 1 mins

@@ -1,2 +1,3 @@
-git+git://github.com/guardian/alerta@release-5-beta1#egg=alerta-server
+git+git://github.com/alerta/alerta.git
+psycopg2
 gunicorn

@@ -19,14 +19,15 @@ Cloud SQL instance and deploying the application to Google App Engine.
 
 To create an PostgreSQL instance either use the Google Cloud Console
 or install the `gcloud` SDK and run:
+    $ gcloud config set project [PROJECT_NUMBER]
 
     $ gcloud sql instances create [INSTANCE_NAME] \
-    --database-version=POSTGRES_9_6 --storage-type=SSD --tier=db-f1-micro
+    --database-version=POSTGRES_11 --storage-type=SSD --tier=db-f1-micro --region "us-central"
 
-    $ gcloud sql users set-password postgres no-host \
+    $ gcloud sql users set-password postgres \
     --instance [INSTANCE_NAME] --password [PASSWORD]
 
-Note: Change the `--storage-type` and `--tier` as appropriate.
+Note: Change the `--storage-type`,  `--tier` and --region as appropriate.
 
 Log in to `psql` to create a database using [GCloud Shell](https://cloud.google.com/shell/docs/)
 or `gcloud` (you will be prompted for the password set above):
@@ -52,6 +53,10 @@ generated above:
 ```
 env_variables:
   DATABASE_URL: postgres://USER:PASSWORD@/DATABASE?host=/cloudsql/INSTANCE_CONNECTION_NAME
+  CORS_ORIGINS: [
+    'http://localhost',
+    'http://localhost:8000'
+    ]
 
 beta_settings:
     cloud_sql_instances: INSTANCE_CONNECTION_NAME
@@ -62,6 +67,11 @@ beta_settings:
 ```
 env_variables:
   DATABASE_URL: postgres://postgres:p0stgr3s@/monitoring?host=/cloudsql/alerta5:europe-west2:monitoring
+  CORS_ORIGINS: [
+    'http://localhost',
+    'http://localhost:8000',
+    'https://myaltertagui.com'
+    ]
 
 beta_settings:
     cloud_sql_instances: alerta5:europe-west2:monitoring
@@ -76,6 +86,9 @@ To deploy the Alerta API and lauch a browser to view the API index page run:
     $ gcloud app browse
 
 Note: Add `--verbosity=info` to any `gcloud` command to get more verbose logging.
+
+Add the service account of your flex app to the Cloud SQL Client role
+https://cloud.google.com/sql/docs/mysql/connect-app-engine
 
 Housekeeping
 ------------
@@ -141,6 +154,7 @@ References
   * Quickstart for Python in the App Engine Flexible Environment: https://cloud.google.com/appengine/docs/flexible/python/quickstart
   * Using Cloud SQL with Python: https://cloud.google.com/python/getting-started/using-cloud-sql
   * Using Cloud SQL for PostgreSQL: https://cloud.google.com/appengine/docs/flexible/python/using-cloud-sql-postgres
+  * Connect to Cloud SQL from App Engine https://cloud.google.com/sql/docs/mysql/connect-app-engine
 
 License
 -------

@@ -9,7 +9,11 @@ manual_scaling:
  instances: 1
 
 env_variables:
-  DATABASE_URL: psycopg2://USER:PASSWORD@/DATABASE?host=/cloudsql/INSTANCE_CONNECTION_NAME
+  DATABASE_URL: postgres://USER:PASSWORD@/DATABASE?host=/cloudsql/INSTANCE_CONNECTION_NAME
+  CORS_ORIGINS: [
+    'http://localhost',
+    'http://localhost:8000'
+    ]
 
 beta_settings:
     cloud_sql_instances: INSTANCE_CONNECTION_NAME
